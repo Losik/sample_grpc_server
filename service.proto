@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+service Service {
+  rpc FooMethod (FooRequest) returns (FooResponse);
+}
+
+message FooRequest {
+  string request_id = 1;
+}
+
+message FooResponse {
+  string request_id = 1;
+}
