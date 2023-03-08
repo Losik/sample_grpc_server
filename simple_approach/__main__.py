@@ -3,7 +3,6 @@ import logging
 from concurrent.futures import ProcessPoolExecutor
 
 import grpc.aio
-from grpc.aio import ServicerContext
 
 from service_pb2 import FooRequest, FooResponse
 from service_pb2_grpc import ServiceServicer, add_ServiceServicer_to_server, ServiceStub
@@ -22,7 +21,7 @@ class Servicer(ServiceServicer):
     def foo(request: FooRequest):
         return FooResponse(request_id=request.request_id)
 
-    async def FooMethod(self, request: FooRequest, context: ServicerContext) -> FooResponse:
+    async def FooMethod(self, request: FooRequest, context: grpc.aio.ServicerContext) -> FooResponse:
         loop = asyncio.get_event_loop()
         return await loop.run_in_executor(self._executor, self.foo, request)
 
